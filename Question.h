@@ -1,11 +1,9 @@
 1|noi dung|a|b|c|d|dapan|
 2|noi dung|a|b|c|d|dapan|
 3|noi dung|a|b|c|d|dapan|
-mmh|noi dung|cau 1|cau 2|cau 3|cau 4|dap an|
 4|noi dung|a|b|c|d|dapan|
 5|noi dung|a|b|c|d|dapan|
 1|noi dung|a|b|c|d|dapan|
 1|noi dung|a|b|c|d|dapan|
-1|5|5|5|5|5|5|
-1|1|1|1|1|1|1|
 1|noi dung|a|b|c|d|dapan|
+1|5|5|5|5|5|5|

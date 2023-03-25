@@ -4,41 +4,28 @@
 #include<fstream>
 #include "khaibaobien.h"
 
-#define MAX 1000000
 using namespace std;
 
-int Array_ID[MAX];
-int counter = 1;
 string filecauhoi = "cauhoi.txt";
-
-//khoi tao mang ID
-void InitArray_ID( )
-{
-	for( int i = 1 ; i <= MAX ; i++ )
-	{
-		Array_ID[i] = i;
-	}
-}
 
 //khoi tao nut
 void Initlize( NODEPTRCH &root ){
 	root = NULL;
 }
 
-//Random ID
-int Random_ID( )
+int Random( int Array[], int Soluong, int dem )
 {
-	int	ID = rand() % (MAX-counter) + counter;
-	swap(Array_ID[counter] , Array_ID[ID]);
-	counter++;
-	return Array_ID[counter-1];
+	int	ID = rand() % (Soluong-dem) + dem;
+	swap(Array[dem] , Array[ID]);
+	dem++;
+	return Array[dem-1];
 }
 
 // tao node
 CauHoi Create_CauHoi( string mmh, string noidung, string A, string B, string C, string D, string dapan )
 {
 	CauHoi p;
-	p.ID = Random_ID();
+	p.ID = Random(Array_ID, MAX, counter);
 	p.mmh = mmh;
 	p.noidung = noidung;
 	p.A = A;
@@ -65,14 +52,36 @@ void Insert_node( NODEPTRCH &root, CauHoi cauhoi ){
 	}
 }
 
+//tao 1 cau hoi vao tree
+void Create_node( NODEPTRCH &root )
+{
+	string	mmh, noidung, A, B, C, D, dapan;
+	cout << "Nhap mmh:";
+	getline(cin,mmh);
+	cout << "Nhap noi dung cau hoi: ";
+	getline(cin,noidung);
+	cout << "Nhap dap an A: ";
+	getline(cin,A);
+	cout << "Nhap dap an B: ";
+	getline(cin,B);
+	cout << "Nhap dap an C: ";
+	getline(cin,C);
+	cout << "Nhap dap an D: ";
+	getline(cin,D);
+	cout << "Nhap dap an: ";
+	getline(cin, dapan);
+	CauHoi cauhoi = Create_CauHoi(mmh,noidung,A,B,C,D,dapan);
+	Insert_node(root, cauhoi);
+}
+
 //doc cau hoi tu file
 void Read_File_CauHoi(NODEPTRCH& root, string filecauhoi) {
+    InitArray_ID();
     ifstream fin(filecauhoi);
     if (!fin.is_open()) {
         cout << "Khong the mo file" << endl;
         return;
     }
-	InitArray_ID();
     string line;
     while (getline(fin, line)) {
         istringstream iss(line);
@@ -92,30 +101,6 @@ void Read_File_CauHoi(NODEPTRCH& root, string filecauhoi) {
     fin.close();
 }
 
-//viet cau hoi vao file
-void Write_File_CauHoi( NODEPTRCH root, string filecauhoi ){
-	ofstream ofn(filecauhoi, ios::ate );
-    if (!ofn.is_open()) {
-        cout << "Khong the mo file!";
-        return;
-    }
-	const int STACKSIZE = 1000000;
-   	NODEPTRCH Stack[STACKSIZE];
-   	int sp=  -1;	// Khoi tao Stack rong
-   	NODEPTRCH p=root;
-   	while (p!=NULL )
-   	{
-		ofn << p->cauhoi.mmh << '|'<< p->cauhoi.noidung << '|' << p->cauhoi.A << '|' << p->cauhoi.B << '|' << p->cauhoi.C << '|' << p->cauhoi.D << '|' << p->cauhoi.dapan << '|' << endl;
-      	if (p->right != NULL)
-	 	Stack[++sp]= p->right;
-     	if (p->left != NULL)
-		p=p->left;
-      	else  if (sp==-1)        break;
-	    else	p=Stack[sp--];
-	}
-	ofn.close();
-}
-
 //in tree theo left node right
 void Traverse_LNR( NODEPTRCH root )
 {
@@ -128,8 +113,100 @@ void Traverse_LNR( NODEPTRCH root )
 	}
 }
 
+//viet cau hoi vao file
+void Write_File_CauHoi( NODEPTRCH root, string filecauhoi ){
+	ofstream ofn(filecauhoi, ios::out );
+    if (!ofn.is_open()) {
+        cout << "Khong the mo file!";
+        return;
+    }
+	const int STACKSIZE = MAX;
+    NODEPTRCH Stack[STACKSIZE];
+    int sp=  -1;	// Khoi tao Stack rong
+    NODEPTRCH p=root;
+    while (p!=NULL )
+    {   
+        ofn << p->cauhoi.mmh << '|'<< p->cauhoi.noidung << '|' << p->cauhoi.A << '|' << p->cauhoi.B << '|' << p->cauhoi.C << '|' << p->cauhoi.D << '|' << p->cauhoi.dapan << '|' << endl;   // “xu ly nút p”
+        if (p->right != NULL)
+        Stack[++sp]= p->right;
+        if (p->left != NULL)
+        p=p->left;
+        else  if (sp==-1)        break;
+	    else	p=Stack[sp--];
+    }
+	ofn.close();
+}
+
+//search mmh
+NODEPTRCH Search( NODEPTRCH root, int x)
+{
+   	NODEPTRCH p;   p = root;
+   	while (p != NULL && p->cauhoi.ID !=x)
+      if(x < p->cauhoi.ID)
+             p = p->left;
+      else
+            p = p->right;
+	return(p); 
+}
+
+// tao de thi
+void Create_Exam( NODEPTRCH root, int socau, string mmh )
+{
+    // CauHoi *Cau = new CauHoi;
+    CauHoi Cau[100];
+    int dem = 1;
+    const int STACKSIZE = 1000000;
+   	NODEPTRCH Stack[STACKSIZE];
+   	int sp=  -1;	// Khoi tao Stack rong
+   	NODEPTRCH p=root;
+   	const int STACKSIZE = MAX;
+    NODEPTRCH Stack[STACKSIZE];
+    int sp=  -1;	// Khoi tao Stack rong
+    NODEPTRCH p=root;
+    while (p!=NULL )
+    {   
+        Cau[dem].ID = p->cauhoi.ID;
+        Cau[dem].mmh = p->cauhoi.mmh;
+        Cau[dem].noidung = p->cauhoi.noidung;
+        Cau[dem].A = p->cauhoi.A;
+        Cau[dem].B = p->cauhoi.B;
+        Cau[dem].C = p->cauhoi.C;
+        Cau[dem].D = p->cauhoi.D;
+        Cau[dem].dapan = p->cauhoi.dapan;
+        dem ++;
+        if (p->right != NULL)
+        Stack[++sp]= p->right;
+        if (p->left != NULL)
+        p=p->left;
+        else  if (sp==-1)        break;
+	    else	p=Stack[sp--];
+    }
+    // int Array_mmh[dem];
+    // for( int i = 1 ; i < dem ;  i++ )
+    // {
+    //     Array_mmh[i] = i;
+    // }
+    // int counter_mmh = 1;
+    for( int ID = 1; ID < socau ; ID++ )
+    {
+        // int ID = Random(Array_mmh, dem-1,counter_mmh );
+        cout << Cau[ID].ID << " " << Cau[ID].noidung << endl;
+    }
+
+}
+
+
 int main()
 {
+    NODEPTRCH root;
+    system("cls");
+    Initlize(root);
+    Read_File_CauHoi(root,filecauhoi);
+    // Traverse_LNR(root);
+    // Create_node(root);
+    // Traverse_LNR(root);
+    // Write_File_CauHoi(root, filecauhoi);
+    Create_Exam(root, 3, "1");
     return 0;
 }
 

@@ -7,6 +7,19 @@
 #define LopMax 500
 #define TRUE 1
 #define FALSE 0
+#define MAX 100000
+
+int Array_ID[MAX];
+int counter = 1;
+
+//khoi tao mang ID
+void InitArray_ID( )
+{
+	for( int i = 1 ; i <= MAX ; i++ )
+	{
+		Array_ID[i] = i;
+	}
+}
 
 using namespace std;
 struct MonHoc;
