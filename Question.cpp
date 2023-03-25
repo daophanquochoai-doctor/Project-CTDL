@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string.h>
 #include<random>
+#include<time.h>
 #include<fstream>
 #include "khaibaobien.h"
 
@@ -13,12 +14,21 @@ void Initlize( NODEPTRCH &root ){
 	root = NULL;
 }
 
-int Random( int Array[], int Soluong, int dem )
+//random
+int Random( int Array[], int Soluong, int &dem )
 {
 	int	ID = rand() % (Soluong-dem) + dem;
 	swap(Array[dem] , Array[ID]);
 	dem++;
 	return Array[dem-1];
+}
+
+//swap
+void swap( int &a, int &b )
+{
+	int temp = a;
+	a = b;
+	b = temp;	
 }
 
 // tao node
@@ -76,7 +86,7 @@ void Create_node( NODEPTRCH &root )
 
 //doc cau hoi tu file
 void Read_File_CauHoi(NODEPTRCH& root, string filecauhoi) {
-    InitArray_ID();
+    InitArray_ID(Array_ID, MAX);
     ifstream fin(filecauhoi);
     if (!fin.is_open()) {
         cout << "Khong the mo file" << endl;
@@ -138,15 +148,39 @@ void Write_File_CauHoi( NODEPTRCH root, string filecauhoi ){
 }
 
 //search mmh
-NODEPTRCH Search( NODEPTRCH root, int x)
+void Search( NODEPTRCH root, string mmh)
 {
-   	NODEPTRCH p;   p = root;
-   	while (p != NULL && p->cauhoi.ID !=x)
-      if(x < p->cauhoi.ID)
-             p = p->left;
-      else
-            p = p->right;
-	return(p); 
+   	 CauHoi Cau[100];
+    int dem = 1;
+   	const int STACKSIZE = MAX;
+    NODEPTRCH Stack[STACKSIZE];
+    int sp=  -1;	// Khoi tao Stack rong
+    NODEPTRCH p=root;
+    while (p!=NULL )
+    {   
+        if( mmh == p->cauhoi.mmh)
+        {
+            Cau[dem].ID = p->cauhoi.ID;
+            Cau[dem].mmh = p->cauhoi.mmh;
+            Cau[dem].noidung = p->cauhoi.noidung;
+            Cau[dem].A = p->cauhoi.A;
+            Cau[dem].B = p->cauhoi.B;
+            Cau[dem].C = p->cauhoi.C;
+            Cau[dem].D = p->cauhoi.D;
+            Cau[dem].dapan = p->cauhoi.dapan;
+            dem ++;
+        }
+        if (p->right != NULL)
+        Stack[++sp]= p->right;
+        if (p->left != NULL)
+        p=p->left;
+        else  if (sp==-1)        break;
+	    else	p=Stack[sp--];
+    }
+    for( int i = 1 ; i < dem ; i++ )
+    {
+        cout << Cau[i].noidung;
+    }
 }
 
 // tao de thi
@@ -155,25 +189,24 @@ void Create_Exam( NODEPTRCH root, int socau, string mmh )
     // CauHoi *Cau = new CauHoi;
     CauHoi Cau[100];
     int dem = 1;
-    const int STACKSIZE = 1000000;
-   	NODEPTRCH Stack[STACKSIZE];
-   	int sp=  -1;	// Khoi tao Stack rong
-   	NODEPTRCH p=root;
    	const int STACKSIZE = MAX;
     NODEPTRCH Stack[STACKSIZE];
     int sp=  -1;	// Khoi tao Stack rong
     NODEPTRCH p=root;
     while (p!=NULL )
     {   
-        Cau[dem].ID = p->cauhoi.ID;
-        Cau[dem].mmh = p->cauhoi.mmh;
-        Cau[dem].noidung = p->cauhoi.noidung;
-        Cau[dem].A = p->cauhoi.A;
-        Cau[dem].B = p->cauhoi.B;
-        Cau[dem].C = p->cauhoi.C;
-        Cau[dem].D = p->cauhoi.D;
-        Cau[dem].dapan = p->cauhoi.dapan;
-        dem ++;
+        if( mmh == p->cauhoi.mmh)
+        {
+            Cau[dem].ID = p->cauhoi.ID;
+            Cau[dem].mmh = p->cauhoi.mmh;
+            Cau[dem].noidung = p->cauhoi.noidung;
+            Cau[dem].A = p->cauhoi.A;
+            Cau[dem].B = p->cauhoi.B;
+            Cau[dem].C = p->cauhoi.C;
+            Cau[dem].D = p->cauhoi.D;
+            Cau[dem].dapan = p->cauhoi.dapan;
+            dem ++;
+        }
         if (p->right != NULL)
         Stack[++sp]= p->right;
         if (p->left != NULL)
@@ -181,18 +214,15 @@ void Create_Exam( NODEPTRCH root, int socau, string mmh )
         else  if (sp==-1)        break;
 	    else	p=Stack[sp--];
     }
-    // int Array_mmh[dem];
-    // for( int i = 1 ; i < dem ;  i++ )
-    // {
-    //     Array_mmh[i] = i;
-    // }
-    // int counter_mmh = 1;
-    for( int ID = 1; ID < socau ; ID++ )
+    int Array_mmh[dem];
+    InitArray_ID(Array_mmh, dem-1);
+    int counter_mmh = 1;
+    srand((int)time(0));
+    for( int i = 1; i <= socau ; i++ )
     {
-        // int ID = Random(Array_mmh, dem-1,counter_mmh );
-        cout << Cau[ID].ID << " " << Cau[ID].noidung << endl;
+        int ID = Random(Array_mmh, dem-1,counter_mmh );
+       cout << Cau[ID].ID << endl << Cau[ID].mmh << endl << Cau[ID].noidung << endl << Cau[ID].A << endl << Cau[ID].B << endl << Cau[ID].C << endl << Cau[ID].D << endl << Cau[ID].dapan << endl << "==================" << endl;
     }
-
 }
 
 
@@ -206,7 +236,7 @@ int main()
     // Create_node(root);
     // Traverse_LNR(root);
     // Write_File_CauHoi(root, filecauhoi);
-    Create_Exam(root, 3, "1");
+    Create_Exam(root, 2, "5");
     return 0;
 }
 

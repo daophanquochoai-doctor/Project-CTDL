@@ -13,11 +13,11 @@ int Array_ID[MAX];
 int counter = 1;
 
 //khoi tao mang ID
-void InitArray_ID( )
+void InitArray_ID(int a[], int soluong )
 {
-	for( int i = 1 ; i <= MAX ; i++ )
+	for( int i = 1 ; i <= soluong ; i++ )
 	{
-		Array_ID[i] = i;
+		a[i] = i;
 	}
 }
 
