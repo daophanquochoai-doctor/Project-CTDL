@@ -2,7 +2,18 @@
 #include<string.h>
 #include "ReadFile.h"
 #include "mylib.h"
-
+char ky_tu_khung=177;
+#define Y_TREN 3
+#define Y_DUOI 33
+#define X_TRAI 5
+#define X_PHAI 125
+#define NGANG_KHUNG 1000
+#define DAI_KHUNG 650
+#define LINE1 7
+#define LINE2 11
+#define COLUMN1 15
+#define COLUMN2 45
+#define COLUMN3 85
 using namespace std;
 
 string fileaccount = "Account.txt";
@@ -114,15 +125,15 @@ void Khung_Lop(){
 		for(int x=X_TRAI-1;x<=X_PHAI+1;x++){
  			if(y==Y_TREN||y==Y_DUOI||y==LINE1||y==LINE2){
 				gotoxy(x,y);
-				cout<<n;
+				cout<<ky_tu_khung;
 			}
 			else if(x<=X_TRAI||x>=X_PHAI){
 				gotoxy(x,y);
-				cout<<n;
+				cout<<ky_tu_khung;
 			}
 			if((x==COLUMN1||x==COLUMN2||x==COLUMN3)&&y>LINE1){
 				gotoxy(x,y);
-				cout<<n;
+				cout<<ky_tu_khung;
 			}
 		}
 	}
