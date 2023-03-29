@@ -8,6 +8,15 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX 100000
+#define ENTER 13
+#define BACKSPACE 8
+#define SPACE 32
+#define CHU_A 65
+#define CHU_Z 90
+#define	CHU_a 97
+#define CHU_z 142
+#define SO_0 48
+#define SO_957
 
 int Array_ID[MAX];
 int counter = 1;
