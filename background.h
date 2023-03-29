@@ -2,7 +2,18 @@
 #include<string.h>
 #include "ReadFile.h"
 #include "mylib.h"
-
+char ky_tu_khung=177;
+#define Y_TREN 3
+#define Y_DUOI 33
+#define X_TRAI 5
+#define X_PHAI 125
+#define NGANG_KHUNG 1000
+#define DAI_KHUNG 650
+#define LINE1 7
+#define LINE2 11
+#define COLUMN1 15
+#define COLUMN2 45
+#define COLUMN3 85
 using namespace std;
 
 string fileaccount = "Account.txt";
@@ -106,6 +117,38 @@ void console_loggin()
 	gotoxy(85,31);
 	cout << "*Vui long khong nhap ki tu sau: | \ ~ !";
 	SetColor(White);
+}
+void Khung_Lop(){
+	resizeConsole(NGANG_KHUNG,DAI_KHUNG);
+	for(int y=Y_TREN;y<=Y_DUOI;y++){
+		//SetBGColor(15);
+		//SetColor(0);
+		SetColor(15);
+		for(int x=X_TRAI-1;x<=X_PHAI+1;x++){
+ 			if(y==Y_TREN||y==Y_DUOI||y==LINE1||y==LINE2){
+				gotoxy(x,y);
+				cout<<ky_tu_khung;
+			}
+			else if(x<=X_TRAI||x>=X_PHAI){
+				gotoxy(x,y);
+				cout<<ky_tu_khung;
+			}
+			if((x==COLUMN1||x==COLUMN2||x==COLUMN3)&&y>LINE1){
+				gotoxy(x,y);
+				cout<<ky_tu_khung;
+			}
+		}
+	}
+	gotoxy(60,5);
+	cout<<"DANH SACH LOP";
+	gotoxy(X_TRAI+(COLUMN1-X_TRAI)/2+2-3,LINE1+2);
+	cout<<"STT";
+	gotoxy(COLUMN1+(COLUMN2-COLUMN1)/2+2-6,LINE1+2);
+	cout<<"MA LOP";
+	gotoxy(COLUMN2+(COLUMN3-COLUMN2)/2+2-6,LINE1+2);
+	cout<<"TEN LOP";
+	gotoxy(COLUMN3+(X_PHAI-COLUMN3)/2+2-6,LINE1+2);
+	cout<<"NIEN KHOA";
 }
 
 bool Check_Account( string user, string pass, string fileaccount )
