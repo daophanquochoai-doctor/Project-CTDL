@@ -4,22 +4,6 @@
 #include <direct.h>
 #include <windows.h>
 
-const int Black = 0;
-const int Blue = 1;
-const int Green = 2;
-const int Aqua = 3;
-const int Red = 4;
-const int Purple = 5;
-const int Yellow = 6;
-const int White = 7;
-const int Gray = 8;
-const int Light_Blue = 9;
-const char Light_Green = 'A';
-const char Light_Aqua = 'B';
-const char Light_Red = 'C';
-const char Light_Purple = 'D';
-const char Light_Yellow = 'E';
-const char Bright_White = 'F';
 
 void gotoxy(short x,short y)
 {
@@ -134,10 +118,22 @@ const int FINISH = 66;
 //////////////////////////////////////////////// COLOR ///////////////////////////////////////
 //
 
-const int BLUE = 1;
-const int GREEN = 10;
-const int WHITE = 15;
-const int BLACK = 0;
+const int Black = 0;
+const int Blue = 1;
+const int Green = 2;
+const int Aqua = 3;
+const int Red = 4;
+const int Purple = 5;
+const int Yellow = 6;
+const int White = 7;
+const int Gray = 8;
+const int Light_Blue = 9;
+const char Light_Green = 'A';
+const char Light_Aqua = 'B';
+const char Light_Red = 'C';
+const char Light_Purple = 'D';
+const char Light_Yellow = 'E';
+const char Bright_White = 'F';
 //
 //////////////////////////////////////////////// COLOR ///////////////////////////////////////
 

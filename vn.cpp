@@ -6,151 +6,49 @@
 
 using namespace std;
 
-void Insert_pass( string &pass, int &x, int &y )
-{
-	char kitu;
-	gotoxy(x,y);
-	ShowConsoleCursor(1);
-	while (true) {
-        kitu = getch();
-        if( kitu == '\r' ) break;
-        ShowConsoleCursor(0);
-        if( kitu == BACKSPACE )
-		{
-			if( x == 94 )
-			{
-				ShowConsoleCursor(1);
-				continue;
-			}
-				gotoxy(--x,y);
-				cout << " ";
-				pass.erase(pass.length()-1,1);
-		}
-		else if( kitu == ESC )	return;
-		else if( kitu != ' ' && kitu != '|' && kitu != '\\' && kitu != '~' && kitu != '!' )
-        {
-        	pass += kitu;
-        	gotoxy(x++,y);
-        	cout << '*';
-		}
-    }
-    color_rectangle(96,27,20,3,Light_Green);
-	insert_title(96,27,Bright_White,20,4,"LOGIN");
-}
 
-void Insert_user( string &user,string &pass, int &x, int &y,int &v,int &t )
+void control()
 {
-	gotoxy(x,y);
-	char kitu;
-	ShowConsoleCursor(1);
-	while( true )
+	char catkey;
+	int number = 1;
+	catkey = getch();
+	switch(catkey)
 	{
-		kitu = getch();
-		if( kitu == '\r' ) break;
-		ShowConsoleCursor(0);
-		if( kitu == BACKSPACE )
-		{
-			if( x == 94 )
+		case UP:
 			{
-				ShowConsoleCursor(1);
-				continue;
+				if( number == 1 )
+				{
+					number = 3;
+					show_rectangle(45,12,40,4,Purple);
+					color_rectangle(46,13,40,3,Black);
+					insert_title(45,12,Aqua,Black,40,5,"Lam Bai Thi");
+					show_rectangle(45,22,40,4,Purple);
+					color_rectangle(46,22,40,3,White);
+					insert_title(45,22,Red,White,40,5,"THOAT");
+				}
+				else
+				{
+					number --;
+				}
+				break;
 			}
-				gotoxy(--x,y);
-				cout << " ";
-				user.erase(user.length()-1,1);
-		}
-		else if( kitu == ESC )	return;
-		else if( kitu != ' ' && kitu != '|' && kitu != '\\' && kitu != '~' && kitu != '!' )
-        {
-        	user += kitu;
-        	gotoxy(x++,y);
-        	cout << kitu;
-		}
+		case ENTER:
+			{
+				if( number == 3 )
+				{
+					return;
+				}
+			}
 	}
-	Insert_pass(pass,v,t);
 }
 
-void Insert_Loggin( string &user, string &pass,int &x,int &y,int &v,int &t)
+void Display_Info_SV()
 {
-	Insert_user(user,pass,x,y,v,t);
-}
-
-void menu( string user )
-{
-	resizeConsole(1100, 630);
-	ShowConsoleCursor(0);
-	show_tittle(22,4);
 	show_rectangle(1,1,130,32,Purple);
-	insert_title(45,10,Red,40,4,"Xin Chao :" + user);
-	show_rectangle(45,12,40,4,Purple);
-	insert_title(45,12,Red,40,5,"Lam Bai Thi");
-	show_rectangle(45,17,40,4,Purple);
-	insert_title(45,17,Red,40,5,"????");
-	show_rectangle(45,22,40,4,Purple);
-	insert_title(45,22,Red,40,5,"????");
-	show_rectangle(45,27,40,4,Purple);
-	insert_title(45,27,Red,40,5,"Thoat");
-	
+	show_rectangle(2,2,128,5,Yellow);
+	show_rectangle(2,8,128,26,Yellow);
 }
 
-//note
-void Note_Acc( int x, int y, int width, int height, string note, int color,int &end)
-{
-	show_rectangle(x,y,width,height,color);
-	color_rectangle(x+1,y+1,width,height-1,color);
-	insert_title(x,y,color,width,height+1,note);
-	int key;
-	key = getch();
-	switch(key)
-	{
-		case ENTER: break;
-		case ESC: end=0;
-					break;
-	}
-}
-
-//load 
-void Load( string user, string pass, int &end)
-{
-	int x = 94, y = 19;
-	int v = 94, t = 24;
-	Insert_Loggin(user,pass,x,y,v,t);
-	int catkey;
-	while( catkey != ENTER )
-	{
-		catkey = getch();
-		switch( catkey )
-		{
-			case ENTER:
-			{
-						if( Check_Account(user,pass,fileaccount) )
-						{
-							system("cls");
-							end = 0;
-							menu( user );
-						}
-						else Note_Acc(40,16,40,4,"TAI KHOAN KHONG TON TAI!",Red,end);
-						break;
-					break;
-			}
-			case ESC : break;
-			case UP:
-				{
-					color_rectangle(96,27,20,3,Purple);
-					insert_title(96,27,Aqua,20,4,"LOGIN");
-					Insert_pass(pass,v,t);
-					break;
-				}
-			case DOWN:
-				{
-					color_rectangle(96,27,20,3,Purple);
-					insert_title(96,27,Aqua,20,4,"LOGIN");
-					Insert_user(user,pass,x,y,v,t);
-					break;
-				}
-		}
-	}
-}
 
 void sig_in()
 {
@@ -165,7 +63,9 @@ void sig_in()
 
 int main()
 {
-	menu("Hoai");
+	resizeConsole(1100, 630);
+	Display_Info_SV();
 	getch();
 	return 0;
 }
+
