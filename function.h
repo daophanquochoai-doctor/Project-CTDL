@@ -2,20 +2,20 @@
 //=============================================================
 //DIEM THI - ds lien ket don(PTRDT)
 void InitializeDT(PTRDT &First);				//Khoi tao
-PTRDT NewnodeDT(void);							//Cap phat vung nho
+PTRDT New_NodeDT(void);							//Cap phat vung nho
 int EmptyDT(PTRDT First);						//kiem tra rong
-void Insert_FirstDT(PTRDT &First,int x);
-void Insert_LastDT(PTRDT &First,int x);			// co the khong dung 
-void Insert_AfterDT(PTRDT p,int x);				//them nut moi vao sau nut co dia chi p
-void Search_infoDT(PTRDT First,int x);
+void Insert_FirstDT(PTRDT &First,DiemThi x);
+void Insert_AfterDT(PTRDT &p,DiemThi x);			//them nut moi vao sau nut co dia chi p
+void Insert_OrderDT(PTRDT &First,DiemThi x);
 void Delete_FirstDT(PTRDT &First);
-void Delete_LastDT(PTRDT &First);				// co the khong dung 
 void Delete_AfterDT(PTRDT p);					//xoa nut o sau nut p
-void Delete_InfoDT(PTRDT &First,int x);
+void Delete_InfoDT(PTRDT &First,float x);
 void Clear_ListDT(PTRDT &First);				//xoa tat ca nut
 void TraverseDT(PTRDT First);					//duyet danh sach
-void Selection_Ascending_SortDT(PTRDT &First);	//sap xep tang dang
-void Selection_Descending_SortDT(PTRDT &First);	//sap xep giam dang 
+void Ascending_SortDT(PTRDT &First);	//sap xep tang dang
+void Descending_SortDT(PTRDT &First);	//sap xep giam dang 
+PTRDT SearchDT(PTRDT &First,DiemThi x);
+void Edit_DiemDT(PTRDT &p,float x);
 //============================================================
 //SINH VIEN - ds lien ket don(PTRSV) 
 void InitializeSV(PTRSV &First);//Khoi tao
@@ -52,22 +52,22 @@ int Search_X(LISTMH &ds,MonHoc X);			//Tra ve vi tri cua X
 //Luong thoi gian(THREAD)
 //=============================================================
 //xu ly du lieu nhap
-void Xu_Ly_Ma(string &ma);//xu ly ma sv, ma lop va ma mon hoc(dung chung 1 ham)
+string Xu_Ly_Ma();//xu ly ma sv, ma lop va ma mon hoc(dung chung 1 ham)
 //-SinhVien---
-void Xu_Ly_TenSV(string &tensv);
-void Xu_Ly_Ma_So_SV(string &mssv);
-void Xu_Ly_Phai(string &phai);
+string Xu_Ly_TenSV();
+string Xu_Ly_Ma_So_SV();
+string Xu_Ly_Phai();
 //-Lop----
-void Xu_Ly_TenL(string &tenlop);
-void Xu_Ly_Nien_Khoa(string &nienkhoa);
+string Xu_Ly_TenL();
+string Xu_Ly_Nien_Khoa();
 //-MonHoc---
-void Xu_Ly_TenMH(string &tenmh);
+string Xu_Ly_TenMH();
 //-Diem--
 void Xu_Ly_Diem(float &DIEM);
 //-CauHoi--
 void Xu_Ly_ID(int ID);
 //=============================================================
 //password
-//ham main
-
+// xuat nhap file
+void Read_File_ListL(DSLOP &dslop,string tenfile);
 

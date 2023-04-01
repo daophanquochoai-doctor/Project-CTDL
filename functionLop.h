@@ -3,7 +3,7 @@ int EmptyL(DSLOP dslop){
 	return	dslop.n==0? TRUE:FALSE;
 }										
 void InsertL(DSLOP &dslop, Lop x){
-	while(dslop.n<LopMax){
+	(dslop.n<LopMax){
 		dslop.nodeL[dslop.n]=new Lop;
 		*dslop.nodeL[dslop.n]=x;
 		dslop.n++;
@@ -13,8 +13,8 @@ void Delete_Item(DSLOP &dslop,int i){
 	delete dslop.nodeL[i];
 	for(int j=i+1;j<dslop.n;j++){
 		dslop.nodeL[j-1]=dslop.nodeL[j];
-		dslop.n--;
 	}
+	dslop.n--;
 }	
 int Search_NameL(DSLOP dslop,string x){
 	for(int i=0;i<=dslop.n;i++){
@@ -64,3 +64,19 @@ int Traverse_Nienkhoa(DSLOP dslop,string x){
 	}
 	return -1;
 }	
+void Read_File_ListL(DSLOP &dslop,string tenfile){
+	string line;
+	Lop lop;
+	ifstream file;
+	file.open(tenfile);
+	while(getline(file,line,'|')){
+		lop.MALOP=line;
+		getline(file,line,'|');
+		lop.TENLOP=line;
+		getline(file,line,'|');
+		lop.NIENKHOA=line;
+		InitializeSV(lop.contro_dssv);
+		InsertL(dslop,lop);
+	}
+	file.close();
+}
