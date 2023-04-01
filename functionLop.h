@@ -78,7 +78,7 @@ void Read_File_ListL(DSLOP &dslop,string tenfile){
 			lop.NIENKHOA=line;
 			InitializeSV(lop.contro_dssv);
 			InsertL(dslop,lop);
-			
+			getline(file,line,'\n');
 		}
 		file.close();
 	}else{
