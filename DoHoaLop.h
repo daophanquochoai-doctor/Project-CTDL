@@ -80,20 +80,6 @@ void Dau_Trang(DSLOP dslop,int trang_hien_tai){
 	gotoxy(X_PHAI-3,LINE4);
 	cout<<" > ";
 }
-void In_dsL(DSLOP dslop){
-	Dau_Trang(dslop,1);
-	for(int i=0;i<dslop.n;i++){
-		gotoxy(X_TRAI+(COLUMN1-X_TRAI)/2,LINE2+i+1);
-		cout<<i+1;
-		gotoxy(COLUMN1+((COLUMN2-COLUMN1)-dslop.nodeL[i]->MALOP.size())/2,LINE2+i+1);
-		cout<<dslop.nodeL[i]->MALOP;
-		gotoxy(COLUMN2+((COLUMN3-COLUMN2)-dslop.nodeL[i]->TENLOP.size())/2,LINE2+i+1);
-		cout<<dslop.nodeL[i]->TENLOP;
-		gotoxy(COLUMN3+(X_PHAI-COLUMN3-8)/2,LINE2+i+1);
-		cout<<dslop.nodeL[i]->NIENKHOA;
-	}
-	gotoxy(0,36);
-}
 void Khung_Lop(){
 	resizeConsole(NGANG_KHUNG,DAI_KHUNG);
 	Disable_Resize_Window();
@@ -127,6 +113,21 @@ void Khung_Lop(){
 	gotoxy(COLUMN3+(X_PHAI-COLUMN3-8)/2,LINE1+1);
 	cout<<"NIEN KHOA";
 	Chu_Thich_Lop();
-	In_dsL(dslop);
 	gotoxy(0,36);
 }
+void In_dsL(DSLOP dslop){
+	Khung_Lop();
+	Dau_Trang(dslop,1);
+	for(int i=0;i<dslop.n;i++){
+		gotoxy(X_TRAI+(COLUMN1-X_TRAI)/2,LINE2+i+1);
+		cout<<i+1;
+		gotoxy(COLUMN1+((COLUMN2-COLUMN1)-dslop.nodeL[i]->MALOP.size())/2,LINE2+i+1);
+		cout<<dslop.nodeL[i]->MALOP;
+		gotoxy(COLUMN2+((COLUMN3-COLUMN2)-dslop.nodeL[i]->TENLOP.size())/2,LINE2+i+1);
+		cout<<dslop.nodeL[i]->TENLOP;
+		gotoxy(COLUMN3+(X_PHAI-COLUMN3-8)/2,LINE2+i+1);
+		cout<<dslop.nodeL[i]->NIENKHOA;
+	}
+	gotoxy(0,36);
+}
+
