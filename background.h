@@ -17,6 +17,7 @@ char ky_tu_khung=177;
 using namespace std;
 
 string fileaccount = "Account.txt";
+string fileaccountgv = "AccountGV.txt";
 
 //ke khung rong
 void show_rectangle( int x, int y, int width, int height, int color )
@@ -115,7 +116,7 @@ void console_loggin()
 	insert_title(96,27,Aqua,Black,20,4,"LOGIN");
 	SetColor(Green);
 	gotoxy(85,31);
-	cout << "*Vui long khong nhap ki tu sau: | \ ~ !";
+	cout << "*Vui long khong nhap ki tu";
 	SetColor(White);
 }
 void Khung_Lop(){
@@ -441,7 +442,132 @@ void Note_Acc( int x, int y, int width, int height, string note, int color,int &
 	}
 }
 
-void menu( string user )
+void menuGV( string user )
+{
+	resizeConsole(1100, 630);
+	ShowConsoleCursor(0);
+	show_tittle(22,4);
+	show_rectangle(1,1,130,32,Purple);
+	insert_title(45,10,Bright_White ,Black,40,4,"TEACHER : " + user);
+	show_rectangle(45,12,40,4,White);
+	color_rectangle(46,13,40,3,White);
+	insert_title(45,12,Aqua,White,40,5,"XEM LOP");
+	show_rectangle(45,17,40,4,Purple);
+	insert_title(45,17,Red,Black,40,5,"XEM DIEM");
+	show_rectangle(45,22,40,4,Purple);
+	insert_title(45,22,Red,Black,40,5,"MONHOC");
+	show_rectangle(45,27,40,4,Purple);
+	insert_title(45,27,Red,Black,40,5,"THOAT");
+	char catkey;
+	int number = 1;
+	while( true )
+	{
+		catkey = getch();
+	switch(catkey)
+	{
+		case UP:
+			{
+				if( number == 1 )
+				{
+					number = 4;
+					show_rectangle(45,12,40,4,Purple);
+					color_rectangle(46,13,40,3,Black);
+					insert_title(45,12,Red,Black,40,5,"XEM LOP");
+					show_rectangle(45,27,40,4,White);
+					color_rectangle(46,28,40,3,White);
+					insert_title(45,27,Aqua,White,40,5,"THOAT");
+					
+				}
+				else if( number == 2 )
+				{
+					number = 1;
+					show_rectangle(45,12,40,4,White);
+					color_rectangle(46,13,40,3,White);
+					insert_title(45,12,Aqua,White,40,5,"XEM LOP");
+					show_rectangle(45,17,40,4,Purple);
+					color_rectangle(46,18,40,3,Black);
+					insert_title(45,17,Red,Black,40,5,"XEM DIEM");
+				}
+				else if( number == 3 )
+				{
+					number = 2;
+					show_rectangle(45,17,40,4,White);
+					color_rectangle(46,18,40,3,White);
+					insert_title(45,17,Aqua,White,40,5,"XEM DIEM");
+					show_rectangle(45,22,40,4,Purple);
+					color_rectangle(46,23,40,3,Black);
+					insert_title(45,22,Red,Black,40,5,"MONHOC");
+				}
+				else if( number == 4 )
+				{
+					number = 3;
+					show_rectangle(45,22,40,4,White);
+					color_rectangle(46,23,40,3,White);
+					insert_title(45,22,Aqua,White,40,5,"MONHOC");
+					show_rectangle(45,27,40,4,Purple);
+					color_rectangle(46,28,40,3,Black);
+					insert_title(45,27,Red,Black,40,5,"THOAT");
+				}
+				break;
+			}
+		case DOWN:
+			{
+				if( number == 4 )	
+				{
+					number = 1;
+					show_rectangle(45,27,40,4,Purple);
+					color_rectangle(46,28,40,3,Black);
+					insert_title(45,27,Red,Black,40,5,"THOAT");
+					show_rectangle(45,12,40,4,White);
+					color_rectangle(46,13,40,3,White);
+					insert_title(45,12,Aqua,White,40,5,"XEM LOP");
+				}
+				else if( number == 1 )
+				{
+					number = 2;
+					show_rectangle(45,12,40,4,Purple);
+					color_rectangle(46,13,40,3,Black);
+					insert_title(45,12,Red,Black,40,5,"XEM LOP");
+					show_rectangle(45,17,40,4,White);
+					color_rectangle(46,18,40,3,White);
+					insert_title(45,17,Aqua,White,40,5,"XEM DIEM");
+				}
+				else if( number == 2 )
+				{
+					number = 3;
+					show_rectangle(45,17,40,4,Purple);
+					color_rectangle(46,18,40,3,Black);
+					insert_title(45,17,Red,Black,40,5,"XEM DIEM");
+					show_rectangle(45,22,40,4,White);
+					color_rectangle(46,23,40,3,White);
+					insert_title(45,22,Aqua,White,40,5,"MONHOC");
+				}
+				else if(number == 3)
+				{
+					number = 4;
+					show_rectangle(45,22,40,4,Purple);
+					color_rectangle(46,23,40,3,Black);
+					insert_title(45,22,Red,Black,40,5,"MONHOC");
+					show_rectangle(45,27,40,4,White);
+					color_rectangle(46,28,40,3,White);
+					insert_title(45,27,Aqua,White,40,5,"THOAT");
+				}
+				break;
+			}
+			
+		case ENTER:
+			{
+				if( number == 4 )
+				{
+					system("cls");
+					return;
+				}
+			}
+	}
+	}
+}
+
+void menuSV( string user )
 {
 	resizeConsole(1100, 630);
 	ShowConsoleCursor(0);
@@ -560,10 +686,14 @@ void Load( string user, string pass, int &end)
 						if( Check_Account(user,pass,fileaccount) )
 						{
 							system("cls");
-							menu(user);
+							menuSV(user);
+						}
+						else if( Check_Account(user,pass,fileaccountgv) )
+						{
+							system("cls");
+							menuGV(user);
 						}
 						else Note_Acc(40,16,40,4,"TAI KHOAN KHONG TON TAI!",Red,end);
-						break;
 					break;
 			}
 			case ESC : 

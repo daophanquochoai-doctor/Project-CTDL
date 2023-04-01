@@ -63,6 +63,7 @@ void sig_in()
 int main()
 {
 	sig_in();
+//	menuGV("luuthikithu");
 	return 0;
 }
 
