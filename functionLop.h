@@ -69,14 +69,35 @@ void Read_File_ListL(DSLOP &dslop,string tenfile){
 	Lop lop;
 	ifstream file;
 	file.open(tenfile);
-	while(getline(file,line,'|')){
-		lop.MALOP=line;
-		getline(file,line,'|');
-		lop.TENLOP=line;
-		getline(file,line,'|');
-		lop.NIENKHOA=line;
-		InitializeSV(lop.contro_dssv);
-		InsertL(dslop,lop);
+	if(file.is_open()){
+		while(getline(file,line,'|')){
+			lop.MALOP=line;
+			getline(file,line,'|');
+			lop.TENLOP=line;
+			getline(file,line,'|');
+			lop.NIENKHOA=line;
+			InitializeSV(lop.contro_dssv);
+			InsertL(dslop,lop);
+			file.close();
+		}	
+	}else{
+		cout<<"Loi mo file de doc.";
 	}
-	file.close();
 }
+void Write_File_ListL(DSLOP &dslop,string tenfile){
+	string line;
+	Lop lop;
+	ofstream file;
+	file.open(tenfile);
+	if(file.is_open()){
+		for(int i=0;i<dslop.n;i++){
+			file<<dslop.nodeL[i]->MALOP<<'|';
+			file<<dslop.nodeL[i]->TENLOP<<'|';
+			file<<dslop.nodeL[i]->NIENKHOA<<'|';
+			file<<endl;
+			file.close();
+		}	
+	}else{
+		cout<<"Loi mo file de ghi.";
+	}
+}	
