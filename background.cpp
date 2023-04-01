@@ -45,7 +45,24 @@ void control()
 void Display_Info_SV()
 {
 	show_rectangle(1,1,130,32,Purple);
-	show_rectangle(2,2,128,5,Purple);
+	show_rectangle(2,2,128,5,Aqua);
+	show_rectangle(3,8,10,3,Aqua);
+	show_rectangle(3,12,10,20,Aqua);
+	show_rectangle(15,8,60,3,Aqua);
+	show_rectangle(15,12,60,20,Aqua);
+	show_rectangle(76,8,30,3,Aqua);
+	show_rectangle(76,12,30,20,Aqua);
+	show_rectangle(107,8,22,3,Aqua);
+	show_rectangle(107,12,22,20,Aqua);
+	ShowConsoleCursor(0);
+	gotoxy(10,4);
+	cout << "TEN : ";
+	gotoxy(70,4);
+	cout << "GIOI TINH : ";
+	gotoxy(10,5);
+	cout << "MSSV : ";
+	gotoxy(70,5);
+	cout << "LOP : ";
 }
 
 
@@ -62,8 +79,10 @@ void sig_in()
 
 int main()
 {
-	sig_in();
-//	menuGV("luuthikithu");
+//	sig_in();
+	resizeConsole(NGANG_KHUNG,DAI_KHUNG);
+	Display_Info_SV();
+	getch();
 	return 0;
 }
 

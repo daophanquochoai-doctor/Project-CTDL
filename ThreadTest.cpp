@@ -1,7 +1,7 @@
 #include <thread>
 #include <unistd.h>
 #include <iostream>
-#include "background.h"
+#include "mylib.h"
 #include <time.h>
 using namespace std;
  int stop=0;  // bien dwfng ca 2 thread
@@ -14,51 +14,13 @@ void run(){
 	if (kt==27) cout<<"\nDung chuong trinh do user ."<<endl;
 	else cout<<"\nDung chuong trinh do het thoi gian ."<<endl;
 }
-void startTimerJob(int time){
-	 int x = 100, y = 10;
-    int p = 0, s = 0;
-    int color = Aqua;
-    do
-    {
-        if (time == 15)
-        {
-            color = Red;
-            color_rectangle(x + 1, y, 8, 2, Red);
-        }
-        ShowConsoleCursor(0);
-        show_rectangle(x, y, 8, 2, color);
-        gotoxy(x + 4, y + 1);
-        cout << ":";
-        if (time >= 10)
-        {
-            gotoxy(x + 2, y + 1);
-        }
-        else
-        {
-            gotoxy(x + 2, y + 1);
-            cout << 0;
-            gotoxy(x + 3, y + 1);
-        }
-        cout << time;
-        gotoxy(x + 5, y + 1);
-        cout << p;
-        gotoxy(x + 6, y + 1);
-        cout << s;
-        if (p == 0 && s == 0)
-        {
-            time--;
-            p = 5;
-            s = 9;
-        }
-        else if (s == 0)
-        {
-            p--;
-            s = 9;
-        }
-        else
-            s--;
-        Sleep(1);
-    } while (time != 0 || p != 0 || s != 0);
+void startTimerJob(int time_in_second){
+	while(time_in_second>=0 && stop==0){
+		gotoxy(70,1); cout <<"Thoi gian con lai : " << time_in_second<<"   ";
+        Sleep(980);		time_in_second-=1; 
+	}
+	if (stop==0) cout<<"\nHet thoi gian"<<endl;  
+	stop=1; 
 
 }
 void startTimer(){

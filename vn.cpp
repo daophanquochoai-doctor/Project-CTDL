@@ -1,70 +1,151 @@
 #include<iostream>
 #include<fstream>
 #include "background.h"
+#include<thread>
 //#include "ReadFile.h"
 
 
 using namespace std;
 
+bool stop = false;
 
-void control()
+void Do_Exam()
 {
-	char catkey;
-	int number = 1;
-	catkey = getch();
-	switch(catkey)
+	ShowConsoleCursor(0);
+	show_rectangle(1,1,130,32,Purple);
+	show_rectangle(15,8,100,9,Aqua);
+	show_rectangle(15,18,45,3,White);
+	show_rectangle(70,18,45,3,Purple);
+	show_rectangle(15,22,45,3,Purple);
+	show_rectangle(70,22,45,3,Purple);
+    show_rectangle(107, 5, 8, 2, Red);
+    gotoxy(111,6);
+    cout << ":";
+	int catkey;
+	char choose = 'A';
+	while( true )
 	{
-		case UP:
-			{
-				if( number == 1 )
+		catkey = getch();
+		switch( catkey )
+		{
+			case DOWN :
 				{
-					number = 3;
-					show_rectangle(45,12,40,4,Purple);
-					color_rectangle(46,13,40,3,Black);
-					insert_title(45,12,Aqua,Black,40,5,"Lam Bai Thi");
-					show_rectangle(45,22,40,4,Purple);
-					color_rectangle(46,22,40,3,White);
-					insert_title(45,22,Red,White,40,5,"THOAT");
+					if( choose == 'A' )
+					{
+						choose = 'C';
+						show_rectangle(15,18,45,3,Purple);
+						show_rectangle(15,22,45,3,White);
+					}
+					else if( choose == 'B' )
+					{
+						choose = 'D';
+						show_rectangle(70,18,45,3,Purple);
+						show_rectangle(70,22,45,3,White);
+					}
+					break;
 				}
-				else
+			case UP:
 				{
-					number --;
+						if( choose == 'C' )
+					{
+						choose = 'A';
+						show_rectangle(15,18,45,3,White);
+						show_rectangle(15,22,45,3,Purple);
+					}
+					else if( choose == 'D' )
+					{
+						choose = 'B';
+						show_rectangle(70,18,45,3,White);
+						show_rectangle(70,22,45,3,Purple);
+					}
+					break;
 				}
-				break;
-			}
-		case ENTER:
-			{
-				if( number == 3 )
+			case RIGHT:
 				{
+					if( choose == 'A')
+					{
+						choose = 'B';
+						show_rectangle(15,18,45,3,Purple);
+						show_rectangle(70,18,45,3,White);
+					}
+					if( choose == 'C')
+					{
+						choose = 'D';
+						show_rectangle(15,22,45,3,Purple);
+						show_rectangle(70,22,45,3,White);
+					}
+					break;
+				}
+			case LEFT:
+				{
+					if( choose == 'B')
+					{
+						choose = 'A';
+						show_rectangle(15,18,45,3,White);
+						show_rectangle(70,18,45,3,Purple);
+					}
+					if( choose == 'D')
+					{
+						choose = 'C';
+						show_rectangle(15,22,45,3,White);
+						show_rectangle(70,22,45,3,Purple);
+					}
+					break;
+				}
+			case ENTER:
+				{
+					stop = true;
 					return;
 				}
-			}
+		}
 	}
 }
 
-void Display_Info_SV()
-{
-	show_rectangle(1,1,130,32,Purple);
-	show_rectangle(2,2,128,5,Yellow);
-	show_rectangle(2,8,128,26,Yellow);
-}
-
-
-void sig_in()
-{
-	int end = 1;
-	while( end != 0 )
+void startTimerJob(int time){
+	int p = 0, s = 0;
+	while( (time != 0 || p != 0 || s != 0) && !stop)
 	{
-		string user, pass;
-		console_loggin();
-		Load(user,pass,end);
+		if( time >= 10 )
+		{
+			gotoxy(109,6);
+		}
+		else{
+			gotoxy(109,6);
+			cout <<0;
+			gotoxy(110,6);
+		}
+		cout << time;
+		gotoxy(112,6);
+		cout << p;
+		gotoxy(113,6);
+		cout << s;
+		if( p == 0 && s == 0 )
+		{
+			time --;
+			p = 5;
+			s = 9;
+		}
+		else if( s == 0)
+		{
+			p--;
+			s = 9;
+		}
+		else s--;
+		Sleep(1000);
 	}
-}
 
+}
+void startTimer(){
+	thread timer;
+	timer=thread(startTimerJob,10); ShowConsoleCursor(0);
+	Do_Exam();  
+	timer.join();
+}
 int main()
 {
 	resizeConsole(1100, 630);
-	Display_Info_SV();
+startTimer();
+//startTimerJob(10);
 	getch();
 	return 0;
 }
