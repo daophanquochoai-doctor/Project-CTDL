@@ -78,8 +78,9 @@ void Read_File_ListL(DSLOP &dslop,string tenfile){
 			lop.NIENKHOA=line;
 			InitializeSV(lop.contro_dssv);
 			InsertL(dslop,lop);
-			file.close();
-		}	
+			
+		}
+		file.close();
 	}else{
 		cout<<"Loi mo file de doc.";
 	}
@@ -94,9 +95,9 @@ void Write_File_ListL(DSLOP &dslop,string tenfile){
 			file<<dslop.nodeL[i]->MALOP<<'|';
 			file<<dslop.nodeL[i]->TENLOP<<'|';
 			file<<dslop.nodeL[i]->NIENKHOA<<'|';
-			file<<endl;
-			file.close();
+			file<<endl;	
 		}	
+		file.close();
 	}else{
 		cout<<"Loi mo file de ghi.";
 	}
