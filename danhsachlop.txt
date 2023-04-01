@@ -1,0 +1,8 @@
+D21CQCN01|Cong nghe thong tin 1|2021-2026|
+D21CQCN02|Cong nghe thong tin 2|2021-2026|
+D21CQCN03|Cong nghe thong tin 3|2021-2026|
+D21CQCN04|Cong nghe thong tin 4|2021-2026|
+D21CQCN05|Cong nghe thong tin 5|2021-2026|
+D21CQAT01|An toan thong tin 1|2021-2026|
+D21CQAT02|An toan thong tin 1|2021-2026|
+D21CQAT03|An toan thong tin 1|2021-2026|
