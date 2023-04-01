@@ -48,6 +48,11 @@ int Search_X(LISTMH &ds,MonHoc X);			//Tra ve vi tri cua X
 //CAU HOI- Cay nhi phan tim kiem(NODEPTRCH)
 //=============================================================
 //DoHoa
+void Disable_Resize_Window();
+void Khung_Lop();
+void Chu_Thich_Lop();
+void In_dsL(DSLOP dslop);
+void Dau_Trang(DSLOP dslop,int trang_hien_tai);
 //=============================================================
 //Luong thoi gian(THREAD)
 //=============================================================
