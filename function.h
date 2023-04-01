@@ -70,4 +70,4 @@ void Xu_Ly_ID(int ID);
 //password
 // xuat nhap file
 void Read_File_ListL(DSLOP &dslop,string tenfile);
-
+void Write_File_ListL(DSLOP &dslop,string tenfile);
